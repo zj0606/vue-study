@@ -6,15 +6,20 @@
     <!-- 事件总线 -->
     <Child2
       ref="child2"
-      msg="some msg from parent"
+      msg="666"
+      title="test"
       @some-event="onSomeEvent"
     ></Child2>
+    <p>v-bind="$attrs"</p>
+    <Parent msg="数据来源爷爷" />
   </div>
 </template>
 
 <script>
 import Child1 from "./Child1.vue";
 import Child2 from "./Child2.vue";
+import Parent from "./Parent1.vue";
+
 
 export default {
   provide() {
@@ -26,6 +31,7 @@ export default {
   components: {
     Child1,
     Child2,
+    Parent
   },
   methods: {
     onSomeEvent(msg) {
@@ -35,8 +41,10 @@ export default {
   mounted() {
     // $children获取子组件数组，不包括普通元素，不保证模板中顺序
     console.log(this.$children);
+    this.$children[0].sendFromIndex();
     // $refs用于引用命名的元素或组件，可包含普通元素
     console.log(this.$refs.child2);
+    this.$refs.child2.sendToChild1('ref')
   },
 };
 </script>

@@ -16,15 +16,23 @@
     mounted () {
       // 总线方式通信
       // this.$bus.$on('event-from-child2', msg => {
-      //   console.log('Child1:', msg);
-      // });
+      //   console.log(msg)
+      // })
 
       // 利用共同祖辈方式通信
       // 兄弟组件可以使用$parent, 没有直接关系使用$root
       this.$parent.$on('event-from-child2', msg => {
-        console.log('Child1:', msg);
-      });
+        console.log(msg)
+      })
+      // this.$parent.$on('event-from-child2', msg => {
+      //   console.log('Child1:', msg);
+      // });
     },
+    methods:{
+      sendFromIndex(){
+        console.log('fromIndex')
+      }
+    }
   }
 </script>
 
