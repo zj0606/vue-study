@@ -50,8 +50,8 @@ const obj = {
 
 observe(obj);
 
-// obj.foo; // get foo
-// obj.foo = "fooooooo";
+obj.foo; // get foo
+obj.foo = "fooooooo";
 // obj.bar;
 // obj.bar = "barrrr";
 // obj.baz
