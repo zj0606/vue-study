@@ -10,6 +10,7 @@ export function initUse (Vue: GlobalAPI) {
     }
 
     // additional parameters
+    // 这个位置说明了 为什么install 方法的第一个参数是vue 实例
     const args = toArray(arguments, 1)
     args.unshift(this)
     if (typeof plugin.install === 'function') {

@@ -4,10 +4,11 @@
  */
 
 import { def } from '../util/index'
-
+// 获取数组原型
 const arrayProto = Array.prototype
+// 复制一份
 export const arrayMethods = Object.create(arrayProto)
-
+// 7个需要覆盖的数组方法
 const methodsToPatch = [
   'push',
   'pop',
@@ -23,10 +24,13 @@ const methodsToPatch = [
  */
 methodsToPatch.forEach(function (method) {
   // cache original method
+  // 缓存原始方法
   const original = arrayProto[method]
   def(arrayMethods, method, function mutator (...args) {
     const result = original.apply(this, args)
+    // 扩展行为，通知更新
     const ob = this.__ob__
+    // 有三个操作是新元素的加入
     let inserted
     switch (method) {
       case 'push':
@@ -37,8 +41,10 @@ methodsToPatch.forEach(function (method) {
         inserted = args.slice(2)
         break
     }
+    // 新加入的元素需要执行响应式处理
     if (inserted) ob.observeArray(inserted)
     // notify change
+    // 小管家通知更新
     ob.dep.notify()
     return result
   })

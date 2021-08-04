@@ -12,10 +12,13 @@ export const createCompiler = createCompilerCreator(function baseCompile (
   template: string,
   options: CompilerOptions
 ): CompiledResult {
+  // 解析template ->ast 抽象语法树
   const ast = parse(template.trim(), options)
   if (options.optimize !== false) {
+    // 优化
     optimize(ast, options)
   }
+  // 生成节点
   const code = generate(ast, options)
   return {
     ast,

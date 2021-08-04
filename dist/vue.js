@@ -5006,9 +5006,9 @@
       }
       // expose real self
       vm._self = vm;
-      initLifecycle(vm);
-      initEvents(vm);
-      initRender(vm);
+      initLifecycle(vm); //$parent $root $refs
+      initEvents(vm); //$on $off $emit $once
+      initRender(vm);  //$slots $scopedSlots
       callHook(vm, 'beforeCreate');
       initInjections(vm); // resolve injections before data/props
       initState(vm);
@@ -12012,3 +12012,4 @@
   return Vue;
 
 }));
+//# sourceMappingURL=vue.js.map

@@ -124,6 +124,7 @@ function initData (vm: Component) {
     )
   }
   // proxy data on instance
+  // data中的数据不能和props和methods中的key重复
   const keys = Object.keys(data)
   const props = vm.$options.props
   const methods = vm.$options.methods
@@ -344,7 +345,8 @@ export function stateMixin (Vue: Class<Component>) {
 
   Vue.prototype.$set = set
   Vue.prototype.$delete = del
-
+// unWatch = vm.$watch('$route',function(val){})
+// vm.$watch('$route',{})
   Vue.prototype.$watch = function (
     expOrFn: string | Function,
     cb: any,

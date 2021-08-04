@@ -20,6 +20,7 @@ import {
   pluckModuleFunction,
   getAndRemoveAttrByRegex
 } from '../helpers'
+import { spawn } from 'child_process'
 
 export const onRE = /^@|^v-on:/
 export const dirRE = process.env.VBIND_PROP_SHORTHAND
@@ -76,6 +77,7 @@ export function createASTElement (
 /**
  * Convert HTML string to AST.
  */
+//  三个parser html/ text /filter
 export function parse (
   template: string,
   options: CompilerOptions
@@ -95,9 +97,10 @@ export function parse (
   transforms = pluckModuleFunction(options.modules, 'transformNode')
   preTransforms = pluckModuleFunction(options.modules, 'preTransformNode')
   postTransforms = pluckModuleFunction(options.modules, 'postTransformNode')
-
+// 分隔符 {{}} 不一定要使用大括号 可以自己设置
   delimiters = options.delimiters
-
+// 解析过程
+//  <div><span></span></div>
   const stack = []
   const preserveWhitespace = options.preserveWhitespace !== false
   const whitespaceOption = options.whitespace
@@ -204,7 +207,7 @@ export function parse (
       )
     }
   }
-
+// 核心的解析算法
   parseHTML(template, {
     warn,
     expectHTML: options.expectHTML,
@@ -281,6 +284,7 @@ export function parse (
         processRawAttrs(element)
       } else if (!element.processed) {
         // structural directives
+        // 结构型指令
         processFor(element)
         processIf(element)
         processOnce(element)

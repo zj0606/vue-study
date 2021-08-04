@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.set</title>
+    <script src="../../dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>foo:{{obj.foo}}</p>
+        <div>bar:{{obj.bar}}</div>
+    </div>
+    <script>
+        const vm = new Vue({
+            el:'#app',
+            data(){
+                return {
+                    obj:{
+                        foo:'f0000',
+                        bar:'bbb'
+                    }
+                }
+            },
+            created(){
+                setTimeout(()=>{
+                    Vue.delete(this.obj,'bar')
+                },3000)
+                
+            }
+        })
+        setTimeout(()=>{
+            Vue.set(vm.obj,'foo','f111111111')
+        },1000)
+        console.log(vm)
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>异步更新</title>
+    <script src="../../dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>异步更新</p>
+        <div id="d1">{{foo}}</div>
+    </div>
+    <script>
+        const app = new Vue({
+            el:'#app',
+            data:{foo:'are you ready'},
+            mounted(){
+
+                // 批量异步更新
+                // 每次赋值 watcher 入队，同一个watcher只入队一次
+                // this.$nextTick(()=>{//位置1
+                //     console.log('nextTick:'+ d1.innerHTML);
+                // })
+                this.foo = Math.random()
+                console.log('1:'+this.foo);
+                this.foo = Math.random()
+                console.log('2:'+this.foo);
+
+                // this.$nextTick(()=>{//位置2
+                //     console.log('nextTick:'+ d1.innerHTML);
+                // })
+                this.foo = Math.random()
+                console.log('3:'+this.foo);
+
+                console.log('d1的innerHTML'+d1.innerHTML);
+                // [callbacks,fn]
+                Promise.resolve().then(()=>{
+                    console.log('promise:'+d1.innerHTML);
+                })
+                this.$nextTick(()=>{//位置3
+                    console.log('nextTick:'+ d1.innerHTML);
+                })
+                
+            }
+        })
+    </script>
+</body>
+</html>

@@ -6,7 +6,7 @@ import { handleError } from './error'
 import { isIE, isIOS, isNative } from './env'
 
 export let isUsingMicroTask = false
-
+// 存储用户传入回调
 const callbacks = []
 let pending = false
 
@@ -83,7 +83,7 @@ if (typeof Promise !== 'undefined' && isNative(Promise)) {
     setTimeout(flushCallbacks, 0)
   }
 }
-
+// 当前nextTick 就是使用的Vue.nextTick
 export function nextTick (cb?: Function, ctx?: Object) {
   let _resolve
   callbacks.push(() => {
@@ -99,6 +99,7 @@ export function nextTick (cb?: Function, ctx?: Object) {
   })
   if (!pending) {
     pending = true
+    // 异步执行
     timerFunc()
   }
   // $flow-disable-line

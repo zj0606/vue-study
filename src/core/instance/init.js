@@ -49,14 +49,14 @@ export function initMixin (Vue: Class<Component>) {
     }
     // expose real self
     vm._self = vm
-    initLifecycle(vm)
-    initEvents(vm)
-    initRender(vm)
+    initLifecycle(vm) //$parent $root $children
+    initEvents(vm) //执行了 事件的监听
+    initRender(vm)  //$slots $scopedSlots vm._c vm.$createElement
     callHook(vm, 'beforeCreate')
-    initInjections(vm) // resolve injections before data/props
-    initState(vm)
-    initProvide(vm) // resolve provide after data/props
-    callHook(vm, 'created')
+    initInjections(vm) // 先注入resolve injections before data/props
+    initState(vm) //props data methods computed watch
+    initProvide(vm) // 再提供 resolve provide after data/props
+    callHook(vm, 'created') 
 
     /* istanbul ignore if */
     if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
@@ -64,7 +64,7 @@ export function initMixin (Vue: Class<Component>) {
       mark(endTag)
       measure(`vue ${vm._name} init`, startTag, endTag)
     }
-
+// 只要参数上有el 直接进行挂载 不需要手动
     if (vm.$options.el) {
       vm.$mount(vm.$options.el)
     }
