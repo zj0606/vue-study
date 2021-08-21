@@ -142,19 +142,28 @@ function rec(target: any, name: string, descriptor: any) {
   descriptor.value = function(val: string) {
       // 扩展功能
       console.log('run method', this.bar);
+      console.log('run method', this.bbz);
       // 本来功能
       baz.call(this, val);
       console.log('run method', this.bar);
+      console.log('run method', this.bbz);
   }
+}
+// 属性装饰器
+function pp(target:any,key:string) {
+  console.log(key);
+  
 }
 
 @log(window.alert)
 class Foo {
   bar: string = 'bar'
-
+  @pp
+  bbz: number = 33
   @rec
   setBar(v:string) {
-    this.bar = v
+    this.bar = v;
+    
   }
 }
 

@@ -10,6 +10,7 @@ import router from './krouter'
 import store from './kstore'
 
 import './ts-test'
+import './ts-learn'
 import axios from 'axios'
 
 Vue.config.productionTip = false
